@@ -19,7 +19,7 @@ public class AlimentoController {
 
     @PostMapping("/incluir")
     @ResponseStatus(value = OK, reason = "Alimento incluído com sucesso")
-    public IncluirAlimentoResponse incluir(@Valid @RequestBody IncluirAlimentoRequest request){
+    public IncluirAlimentoResponse incluir(@RequestBody IncluirAlimentoRequest request){
         return inlcuirAlimentoService.incluir(request);
     }
 }
