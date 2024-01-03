@@ -5,11 +5,15 @@ import com.example.EasyFood.controller.alimento.request.IncluirAlimentoRequest;
 import com.example.EasyFood.controller.alimento.response.AlterarAlimentoResponse;
 import com.example.EasyFood.controller.alimento.response.DetalharAlimentoResponse;
 import com.example.EasyFood.controller.alimento.response.IncluirAlimentoResponse;
+import com.example.EasyFood.controller.alimento.response.ListarAlimentoResponse;
+import com.example.EasyFood.service.ListarAlimentoService;
 import com.example.EasyFood.service.alimento.AlterarAlimentoService;
 import com.example.EasyFood.service.alimento.DeletarAlimentoService;
 import com.example.EasyFood.service.alimento.DetalharAlimentoService;
 import com.example.EasyFood.service.alimento.InlcuirAlimentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -26,6 +30,8 @@ public class AlimentoController {
     private DeletarAlimentoService deletarAlimentoService;
     @Autowired
     private DetalharAlimentoService detalharAlimentoService;
+    @Autowired
+    private ListarAlimentoService listarAlimentoService;
 
     @PostMapping("/incluir")
     public IncluirAlimentoResponse incluir(@RequestBody IncluirAlimentoRequest request){
@@ -47,5 +53,9 @@ public class AlimentoController {
     @GetMapping("/detalhar/{alimentoId}")
     public DetalharAlimentoResponse detalhar(@PathVariable Long alimentoId){
         return detalharAlimentoService.detalhar(alimentoId);
+    }
+    @GetMapping
+    public Page<ListarAlimentoResponse> listar(@RequestParam(required = false, defaultValue = "") String search, Pageable pageable){
+        return listarAlimentoService.listar(search, pageable);
     }
 }
